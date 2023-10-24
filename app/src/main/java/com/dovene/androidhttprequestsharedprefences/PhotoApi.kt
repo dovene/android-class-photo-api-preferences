@@ -14,7 +14,7 @@ class PhotoApi {
     interface PhotoService {
         // For testing https://api.pexels.com/v1/search?query=people
         @GET("search")
-        fun getPhotos(@Header("Authorization") authorization:String, @Query("query") criteria: String): Call<PhotoApiResponse>
+        fun getPhotos(@Header("Authorization") apiKey:String, @Query("query") criteria: String): Call<PhotoApiResponse>
     }
 
     private val baseUrl = "https://api.pexels.com/v1/"
