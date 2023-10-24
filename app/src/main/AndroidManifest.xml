@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AndroidHttpRequestSharedPrefences"
         tools:targetApi="31">
         <activity
+            android:name=".FavoritesActivity"
+            android:exported="false" />
+        <activity
             android:name=".PhotoDetailActivity"
             android:exported="false" />
         <activity

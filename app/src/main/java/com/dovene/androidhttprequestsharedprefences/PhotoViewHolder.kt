@@ -11,10 +11,13 @@ class PhotoViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var photoIV: ImageView
     private var authorTV: TextView
     private var containerCL: ConstraintLayout
+    private var bookmark: ImageView
+
     init {
         photoIV = itemView.findViewById(R.id.photo_iv)
         authorTV = itemView.findViewById(R.id.author_tv)
         containerCL = itemView.findViewById(R.id.container)
+        bookmark = itemView.findViewById(R.id.bookmark)
     }
 
     fun bind(photo: Photos, photoItemCallback: PhotoItemCallback
@@ -24,6 +27,9 @@ class PhotoViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
             .into(photoIV)
         containerCL.setOnClickListener {
             photoItemCallback.onCellClick(photo)
+        }
+        bookmark.setOnClickListener {
+            photoItemCallback.onSavePhoto(photo)
         }
     }
 }

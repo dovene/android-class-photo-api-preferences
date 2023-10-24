@@ -3,7 +3,6 @@ package com.dovene.androidhttprequestsharedprefences
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,13 +28,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewItems() {
-        setTitle(getString(R.string.app_name))
+
+        val storedSearch = SharedPreferencesManager().getSearchCriteria(this)
+        if (storedSearch != null) {
+            binding.searchEt.setText(storedSearch)
+        }
+
         binding.searchBt.setOnClickListener {
             checkUserInput()
-
             callService()
             binding.searchBt.visibility = View.INVISIBLE
             binding.progress.visibility = View.VISIBLE
+        }
+        binding.favoritesBt.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
         }
     }
 
@@ -49,11 +55,10 @@ class MainActivity : AppCompatActivity() {
     private fun callService() {
         val service: PhotoApi.PhotoService =
             PhotoApi().getClient().create(PhotoApi.PhotoService::class.java)
-        val searchCriteria = findViewById<EditText>(R.id.search_et).text.toString()
         val call: Call<PhotoApiResponse> =
             service.getPhotos(
                 "IlQOgCrui5R9g9aHW8r3Frhk78vqlbwWeaYmaMG25eJtzJtCOZyUdNEw",
-                searchCriteria
+                binding.searchEt.text.toString()
             )
         call.enqueue(object : Callback<PhotoApiResponse> {
             override fun onResponse(
@@ -74,6 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun searchEnded() {
         binding.searchBt.visibility = View.VISIBLE
         binding.progress.visibility = View.INVISIBLE
+        SharedPreferencesManager().saveSearchCriteria(binding.searchEt.text.toString(), this)
     }
 
     private fun processFailure(t: Throwable) {
@@ -89,12 +95,20 @@ class MainActivity : AppCompatActivity() {
                         gotoNextActivity(photo)
                     }
 
+                    override fun onSavePhoto(photo: Photos) {
+                        savePhoto(photo)
+                    }
+
                 })
                 val recyclerView = findViewById<RecyclerView>(R.id.photo_rv)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             }
         }
+    }
+
+    private fun savePhoto(photo: Photos) {
+        SharedPreferencesManager().savePhoto(photo, this)
     }
 
     private fun gotoNextActivity(photo: Photos) {

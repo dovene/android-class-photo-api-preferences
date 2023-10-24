@@ -21,7 +21,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         val photographer = intent.extras?.getString(MainActivity.photographerKey)
         val image = intent.extras?.getString(MainActivity.imageKey)
         binding.photographerTv.text = photographer
-        Glide.with(this).load(image)
+        Glide.with(binding.photoIv.context).load(image)
             .into(binding.photoIv)
     }
 
