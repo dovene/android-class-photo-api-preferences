@@ -1,5 +1,6 @@
 package com.dovene.androidhttprequestsharedprefences
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -15,6 +16,11 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    companion object {
+        val photographerKey = "photographerKey"
+        val imageKey = "imageKey"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,9 +31,18 @@ class MainActivity : AppCompatActivity() {
     private fun setViewItems() {
         setTitle(getString(R.string.app_name))
         binding.searchBt.setOnClickListener {
+            checkUserInput()
+
             callService()
             binding.searchBt.visibility = View.INVISIBLE
             binding.progress.visibility = View.VISIBLE
+        }
+    }
+
+    private fun checkUserInput() {
+        if (binding.searchEt.text.toString().isEmpty()) {
+            Toast.makeText(this, "Veuillez effectuer une saisie", Toast.LENGTH_LONG).show()
+            return
         }
     }
 
@@ -68,12 +83,24 @@ class MainActivity : AppCompatActivity() {
     private fun processResponse(response: Response<PhotoApiResponse>) {
         if (response.body() != null) {
             val body = response.body()
-            if (!body?.photos.isNullOrEmpty()) {
-                val adapter = PhotoListViewAdapter(body?.photos!!)
+            if (body?.photos?.isNotEmpty() == true) {
+                val adapter = PhotoListViewAdapter(body.photos, object : PhotoItemCallback {
+                    override fun onCellClick(photo: Photos) {
+                        gotoNextActivity(photo)
+                    }
+
+                })
                 val recyclerView = findViewById<RecyclerView>(R.id.photo_rv)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             }
         }
+    }
+
+    private fun gotoNextActivity(photo: Photos) {
+        val intent = Intent(this, PhotoDetailActivity::class.java)
+        intent.putExtra(photographerKey, photo.photographer)
+        intent.putExtra(imageKey, photo.src?.original)
+        startActivity(intent)
     }
 }

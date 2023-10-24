@@ -1,6 +1,5 @@
 package com.dovene.androidhttprequestsharedprefences
 
-
 import com.google.gson.annotations.SerializedName
 
 

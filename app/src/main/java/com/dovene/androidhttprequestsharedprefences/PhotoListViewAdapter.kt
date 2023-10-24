@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 
-class PhotoListViewAdapter(var photos: MutableList<Photos>) : Adapter<PhotoViewHolder>() {
+class PhotoListViewAdapter(var photos: MutableList<Photos>, var photoItemCallback: PhotoItemCallback) : Adapter<PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,7 +18,7 @@ class PhotoListViewAdapter(var photos: MutableList<Photos>) : Adapter<PhotoViewH
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(photos[position])
+        holder.bind(photos[position], photoItemCallback)
     }
 
 }
