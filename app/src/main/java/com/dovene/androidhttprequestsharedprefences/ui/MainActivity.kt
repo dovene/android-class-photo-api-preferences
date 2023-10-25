@@ -1,4 +1,4 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dovene.androidhttprequestsharedprefences.R
+import com.dovene.androidhttprequestsharedprefences.localdata.SharedPreferencesManager
 import com.dovene.androidhttprequestsharedprefences.databinding.ActivityMainBinding
+import com.dovene.androidhttprequestsharedprefences.model.PhotoApiResponse
+import com.dovene.androidhttprequestsharedprefences.model.Photos
+import com.dovene.androidhttprequestsharedprefences.service.PhotoApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -108,7 +113,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savePhoto(photo: Photos) {
-        SharedPreferencesManager().savePhoto(photo, this)
+       if (SharedPreferencesManager().savePhoto(photo, this)){
+           Toast.makeText(this,"Enregistrement bien effectué", Toast.LENGTH_LONG).show()
+       } else {
+           Toast.makeText(this,"Cette photo est déjà dans vos favoris", Toast.LENGTH_LONG).show()
+       }
     }
 
     private fun gotoNextActivity(photo: Photos) {

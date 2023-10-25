@@ -1,4 +1,4 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.model
 
 import com.google.gson.annotations.SerializedName
 

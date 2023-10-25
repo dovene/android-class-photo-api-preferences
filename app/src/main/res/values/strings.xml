@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Photo Album</string>
     <string name="search">search</string>
-    <string name="favorites">Favoris</string>
+    <string name="favorites">Mes favoris</string>
 </resources>

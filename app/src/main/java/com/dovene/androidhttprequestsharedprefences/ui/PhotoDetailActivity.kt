@@ -1,4 +1,4 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.ui
 
 import android.view.View
 import android.widget.ImageView
@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dovene.androidhttprequestsharedprefences.R
+import com.dovene.androidhttprequestsharedprefences.model.Photos
 
 class PhotoViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var photoIV: ImageView

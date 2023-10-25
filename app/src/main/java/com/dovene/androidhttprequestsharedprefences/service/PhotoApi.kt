@@ -1,5 +1,6 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.service
 
+import com.dovene.androidhttprequestsharedprefences.model.PhotoApiResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

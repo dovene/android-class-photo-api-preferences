@@ -1,9 +1,11 @@
-package com.dovene.androidhttprequestsharedprefences
+package com.dovene.androidhttprequestsharedprefences.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.dovene.androidhttprequestsharedprefences.R
+import com.dovene.androidhttprequestsharedprefences.model.Photos
 
 class PhotoListViewAdapter(var photos: MutableList<Photos>, var photoItemCallback: PhotoItemCallback) : Adapter<PhotoViewHolder>() {
 
